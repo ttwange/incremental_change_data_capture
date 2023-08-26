@@ -8,16 +8,17 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=exampledb
-  
+
   pgadmin:
-          image: dpage/pgadmin4
-          environment: 
-              - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
-              - PGADMIN_DEFAULT_PASSWORD=admin1234
-          ports:
-              - '5050:80'
-          restart: always
-  
+        image: dpage/pgadmin4
+        environment: 
+            - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+            - PGADMIN_DEFAULT_PASSWORD=admin1234
+        ports:
+            - '5050:80'
+        restart: always
+
+
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.3
     environment:
@@ -49,7 +50,7 @@ services:
     depends_on: [kafka]
     ports:
       - 8083:8083
-  
+
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.3
     environment:
