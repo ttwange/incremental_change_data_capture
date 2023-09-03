@@ -34,8 +34,11 @@ def get_asset_data(url: str, csv_file_path: str) -> str:
         return None
     
 @task()
-def transform_asset(df: pd.DataFrame) -> pd.DataFrame:
+def transform_asset(csv_file_path: str) -> pd.DataFrame:
     """Transform raw asset data into cleaned format for further analysis."""
+    # Load data from the csv file into a dataframe
+    df = pd.read_csv(csv_file_path)
+    
     # Clean the data: Replace None values with appropriate defaults (e.g., 0)
     df.fillna(0, inplace=True)
 
@@ -44,7 +47,8 @@ def transform_asset(df: pd.DataFrame) -> pd.DataFrame:
 
     df[numeric_columns] = df[numeric_columns].astype(float)
 
-    print(df)
+    df = df.drop('explorer', axis=1)
+
     return df
 
 @flow()
@@ -56,8 +60,8 @@ def Extract_Load_transform() -> None:
     csv_file_path = 'asset_data/asset-data.csv'
     
     # Call the function and print the DataFrame
-    df = get_asset_data(url, csv_file_path)
-    df = transform_asset(df)
+    csv_file_path = get_asset_data(url, csv_file_path)
+    df = transform_asset(csv_file_path)
 
 if __name__ == "__main__":
     Extract_Load_transform()
