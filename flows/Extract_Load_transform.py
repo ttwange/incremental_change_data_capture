@@ -39,3 +39,12 @@ url = "http://api.coincap.io/v2/assets"
 
 # Call the function and print the DataFrame
 print(get_asset_data(url))
+
+def transform_asset(df: int) -> pd.DataFrame:
+    """Transform raw asset data into cleaned format for further analysis."""
+    # Clean the data: Replace None values with appropriate defaults (e.g., 0)
+    df.fillna(0, inplace=True)
+
+    # Convert numeric columns to appropriate data types
+    numeric_columns = ["supply", "maxSupply", "marketCapUsd", "volumeUsd24Hr", "priceUsd", "changePercent24Hr", "vwap24Hr"]
+    df[numeric_columns] = df[numeric_columns].astype(float)
