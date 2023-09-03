@@ -3,7 +3,7 @@ services:
   postgres:
     image: debezium/postgres:13
     ports:
-      - 5431:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
@@ -59,4 +59,4 @@ services:
       - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081,http://localhost:8081
     ports:
       - 8081:8081
-    depends_on: [zookeeper, kafka]
+    depends_on: [zookeeper, kafka]      

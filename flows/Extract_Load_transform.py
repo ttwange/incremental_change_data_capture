@@ -49,7 +49,10 @@ def transform_asset(csv_file_path: str) -> pd.DataFrame:
 
     df = df.drop('explorer', axis=1)
 
+    print(df.dtypes)
     return df
+    
+@task
 
 @flow()
 def Extract_Load_transform() -> None:
@@ -57,11 +60,11 @@ def Extract_Load_transform() -> None:
     url = "http://api.coincap.io/v2/assets"
     
     # Define the path to save the CSV file
-    csv_file_path = 'asset_data/asset-data.csv'
+    csv_file_path = "./asset_data/asset-data.csv"
     
     # Call the function and print the DataFrame
-    csv_file_path = get_asset_data(url, csv_file_path)
-    df = transform_asset(csv_file_path)
+    df = get_asset_data(url, csv_file_path)
+    df = transform_asset(df)
 
 if __name__ == "__main__":
     Extract_Load_transform()
