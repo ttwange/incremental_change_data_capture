@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 
 url = "http://api.coincap.io/v2/assets"
-print(df)
+
 
 def get_asset_data(url: str) -> pd.DataFrame:
   """Get asset data from CoinCap API."""
@@ -15,6 +15,7 @@ def get_asset_data(url: str) -> pd.DataFrame:
 
   df = pd.DataFrame(asset_data)
   df.to_csv('asset-data.csv',index=False)
-  return df
+  #return df
+  print(df)
 
 
