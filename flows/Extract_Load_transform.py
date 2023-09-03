@@ -1,21 +1,41 @@
-import json
+import os
 import requests
 import pandas as pd
-
-url = "http://api.coincap.io/v2/assets"
-
+import json
 
 def get_asset_data(url: str) -> pd.DataFrame:
-  """Get asset data from CoinCap API."""
-  payload = {}
-  headers = {}
-  response = requests.request("GET",url, headers=headers, data=payload)
-  json_data = json.loads(response.text.encode('utf8'))
-  asset_data = json_data["data"]
+    """Get asset data from CoinCap API and save it as a CSV file."""
+    # Send a GET request to the specified URL
+    response = requests.get(url)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the JSON response
+        json_data = response.json()
+        data = json_data["data"]
+        
+        # Create a DataFrame
+        df = pd.DataFrame(data)
+        
+        # Define the path to save the CSV file
+        asset_data_folder = 'asset_data'
+        csv_file_path = os.path.join(asset_data_folder, 'asset-data.csv')
+        
+        # Ensure the 'asset_data' folder exists
+        if not os.path.exists(asset_data_folder):
+            os.makedirs(asset_data_folder)
+        
+        # Save the DataFrame as a CSV file in the 'asset_data' folder
+        df.to_csv(csv_file_path, index=False)
+        
+        return df
+    else:
+        # Handle the case when the request fails
+        print(f"Failed to retrieve data. Status code: {response.status_code}")
+        return None
 
-  df = pd.DataFrame(asset_data)
-  df.to_csv('asset-data.csv',index=False)
-  #return df
-  print(df)
+# Define the URL to fetch data from
+url = "http://api.coincap.io/v2/assets"
 
-
+# Call the function and print the DataFrame
+print(get_asset_data(url))
