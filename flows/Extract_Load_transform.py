@@ -1,8 +1,9 @@
 import os
+import json
 import requests
 import pandas as pd
-import json
 from prefect import task, flow
+from sqlalchemy import create_engine
 
 @task()
 def get_asset_data(url: str, csv_file_path: str) -> str:
@@ -53,6 +54,20 @@ def transform_asset(csv_file_path: str) -> pd.DataFrame:
     return df
     
 @task
+def load_postgres(df):
+    """Loads data into PostgreSQL database using SQLAlchemy ORM"""
+    # Define the PostgreSQL database connection URL
+    db_url = 'postgresql://docker:docker@localhost:5431/exampledb'
+       
+    # Create an SQLAlchemy engine to connect to the database
+    engine = create_engine(db_url)
+    print(pd.io.sql.get_schema(df, name='asset', con=engine))
+    # Use the to_sql method to insert the DataFrame into the 'asset' table
+    df.to_sql(name='asset', con=engine, if_exists='append', index=False)  # Set index=False to avoid saving DataFrame index
+    
+    # Print a message to indicate that the data upload is complete
+    print("Data upload complete")
+
 
 @flow()
 def Extract_Load_transform() -> None:
@@ -64,7 +79,8 @@ def Extract_Load_transform() -> None:
     
     # Call the function and print the DataFrame
     df = get_asset_data(url, csv_file_path)
-    df = transform_asset(df)
+    df_csv = transform_asset(df)
+    load_postgres(df_csv)
 
 if __name__ == "__main__":
     Extract_Load_transform()
