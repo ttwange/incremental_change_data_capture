@@ -2,6 +2,7 @@ import os
 import requests
 import pandas as pd
 import json
+from prefect import task,flow
 
 def get_asset_data(url: str) -> pd.DataFrame:
     """Get asset data from CoinCap API and save it as a CSV file."""
@@ -33,13 +34,6 @@ def get_asset_data(url: str) -> pd.DataFrame:
         # Handle the case when the request fails
         print(f"Failed to retrieve data. Status code: {response.status_code}")
         return None
-
-# Define the URL to fetch data from
-url = "http://api.coincap.io/v2/assets"
-
-# Call the function and print the DataFrame
-print(get_asset_data(url))
-
 def transform_asset(df: int) -> pd.DataFrame:
     """Transform raw asset data into cleaned format for further analysis."""
     # Clean the data: Replace None values with appropriate defaults (e.g., 0)
@@ -47,4 +41,14 @@ def transform_asset(df: int) -> pd.DataFrame:
 
     # Convert numeric columns to appropriate data types
     numeric_columns = ["supply", "maxSupply", "marketCapUsd", "volumeUsd24Hr", "priceUsd", "changePercent24Hr", "vwap24Hr"]
+
     df[numeric_columns] = df[numeric_columns].astype(float)
+
+    print(df)
+
+
+@flow()
+def Extract_Load_transform() -> None:
+    # Define the URL to fetch data from
+url = "http://api.coincap.io/v2/assets"
+    
