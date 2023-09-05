@@ -11,7 +11,6 @@ def get_asset_data(url: str, csv_file_path: str) -> str:
     
     response = requests.get(url)
     
-    # Check if the request was successful
     if response.status_code == 200:
         # Parse the JSON response
         json_data = response.json()
