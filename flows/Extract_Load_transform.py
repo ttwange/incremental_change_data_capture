@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 @task()
 def get_asset_data(url: str, csv_file_path: str) -> str:
     """Get asset data from CoinCap API and save it as a CSV file."""
-    # Send a GET request to the specified URL
+    # Send a GET request to the specified 
     response = requests.get(url)
     
     # Check if the request was successful
