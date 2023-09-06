@@ -15,8 +15,7 @@ def get_asset_data(url: str, csv_file_path: str) -> str:
         
         json_data = response.json()
         data = json_data["data"]
-        
-        # Create a 
+
         df = pd.DataFrame(data)
         
         # Ensure the 'asset_data' folder exists
