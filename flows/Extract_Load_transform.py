@@ -75,7 +75,6 @@ def Extract_Load_transform() -> None:
     # Define the path to save the CSV file
     csv_file_path = "./asset_data/asset-data.csv"
     
-    # Call the function and print the DataFrame
     df = get_asset_data(url, csv_file_path)
     df_csv = transform_asset(df)
     load_postgres(df_csv)
