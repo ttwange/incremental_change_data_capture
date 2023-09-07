@@ -72,7 +72,7 @@ def Extract_Load_transform() -> None:
     # Define the URL to fetch data from
     url = "http://api.coincap.io/v2/assets"
     
-    # Define the path to save the CSV file
+    # Define the path to save 
     csv_file_path = "./asset_data/asset-data.csv"
     
     df = get_asset_data(url, csv_file_path)
