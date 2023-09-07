@@ -18,7 +18,6 @@ def get_asset_data(url: str, csv_file_path: str) -> str:
 
         df = pd.DataFrame(data)
         
-        # Ensure the 'asset_data' 
         if not os.path.exists(os.path.dirname(csv_file_path)):
             os.makedirs(os.path.dirname(csv_file_path))
         
