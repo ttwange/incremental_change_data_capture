@@ -29,17 +29,7 @@ The project is organized into several directories and files:
 
 ## Project Components
 
-The key components of this project include:
 
-- **Asset Data**: The "asset_data" directory contains CSV files serving as the source data for the ETL process. These files likely contain information about assets, possibly related to cryptocurrencies or financial data.
-
-- **ETL Flows**: The "flows" directory contains Python scripts responsible for the ETL process. These scripts are organized into functions or tasks that perform data extraction, transformation, and loading using libraries such as Pandas, SQLAlchemy, and Prefect.
-
-- **Debezium Configuration**: The "debezium.json" file defines configuration settings for Debezium, which monitors changes in databases. It specifies which databases to watch and how to capture data changes.
-
-- **Deployment Configuration**: The "Extract_Load_transform-deployment.yaml" file contains deployment configurations for the project. It specifies how to deploy the ETL pipeline and related components, potentially using tools like Kubernetes or container orchestration.
-
-- **Docker Compose**: The "docker-compose.yaml" file defines and runs Docker containers for components like Kafka, Debezium, or other services required for the project's operation.
 
 ## Getting Started
 
