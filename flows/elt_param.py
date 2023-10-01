@@ -59,7 +59,7 @@ def transform_asset(csv_file_path: str) -> pd.DataFrame:
 def load_postgres(df):
     """Loads data into PostgreSQL database using SQLAlchemy ORM"""
     # Define the PostgreSQL database connection URL
-    db_url = 'postgresql://docker:docker@localhost:5431/exampledb'
+    db_url = os.getenv("db_url")
        
     # Create an SQLAlchemy engine to connect to the database
     engine = create_engine(db_url)
