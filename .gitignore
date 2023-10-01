@@ -2,4 +2,4 @@
 coincap.txt
 Extract_Load_transform-deployment.yaml
 asset-data
-flows\__pycache__
+flows/__pycache__/
