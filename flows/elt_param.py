@@ -1,12 +1,12 @@
 import os
-import json
 import requests
 import pandas as pd
 from prefect import task, flow
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
-import os
 
+
+load_dotenv()
 @task()
 def get_asset_data(url: str, csv_file_path: str) -> str:
     """Get asset data from CoinCap API and save it as a CSV file."""
