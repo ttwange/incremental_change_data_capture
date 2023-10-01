@@ -2,8 +2,6 @@
 pandas==1.3.3
 sqlalchemy==1.4.23
 prefect==0.16.1
-
-# Additional Dependencies (Add as needed)
-# library_name==version
+python-dotenv
 
 # Note: Ensure that you have Python 3.6 or higher installed.

@@ -4,6 +4,8 @@ import requests
 import pandas as pd
 from prefect import task, flow
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
+import os
 
 @task()
 def get_asset_data(url: str, csv_file_path: str) -> str:
