@@ -15,21 +15,16 @@ def get_asset_data(url: str, csv_file_path: str) -> str:
     
     # Check if the request was successful
     if response.status_code == 200:
-        # Parse the JSON response
         json_data = response.json()
         data = json_data["data"]
         
-        # Create a DataFrame
         df = pd.DataFrame(data)
         
-        # Ensure the 'asset_data' folder exists
         if not os.path.exists(os.path.dirname(csv_file_path)):
             os.makedirs(os.path.dirname(csv_file_path))
         
-        # Save the DataFrame as a CSV file in the specified path
         df.to_csv(csv_file_path, index=False)
         
-        # Return the CSV file path
         return csv_file_path
     else:
         # Handle the case when the request fails
